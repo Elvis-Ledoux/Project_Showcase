@@ -1,6 +1,6 @@
 This project involves a traffic and pedestrian light system that includes a pedestrian button for crossing the road.
 
-When the button is pressed, the pedestrian light switches to green as quickly as possible. The pedestrian signal 
+When the button is pressed and hold, the pedestrian light switches to green as quickly as possible. The pedestrian signal 
 
 remains red when the traffic light is green, and when the pedestrian signal turns green, the traffic light switches to red.
 

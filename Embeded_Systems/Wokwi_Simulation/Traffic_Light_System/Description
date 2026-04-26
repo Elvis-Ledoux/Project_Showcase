@@ -1,0 +1,10 @@
+This project involves a traffic and pedestrian light system that includes a pedestrian button for crossing the road.
+
+When the button is pressed, the pedestrian light switches to green as quickly as possible. The pedestrian signal 
+
+remains red when the traffic light is green, and when the pedestrian signal turns green, the traffic light switches to red.
+
+
+Link to the Wokwi project.
+
+https://wokwi.com/projects/462223153324079105

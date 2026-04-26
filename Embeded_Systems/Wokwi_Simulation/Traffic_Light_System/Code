@@ -1,0 +1,145 @@
+// pin declaration
+const int redPin = 12;
+const int yellowPin = 10;
+const int greenPin = 8;
+
+const int pedRedPin = 7;
+const int pedGreenPin = 5;
+const int pedButtonPin = 3;
+
+// declaring variables
+const int delay_time = 10000;
+const int yellow_delay_time = delay_time / 5;
+const int flashDelay = delay_time / 10;
+
+bool pedRequest = false;
+enum State {GREEN, RED, YELLOW, RED_YELLOW, GREEN_YELLOW, PED_CROSS};
+State currentState = RED;
+
+// Flash pedestrian green light to indicate the effects of pressing the button
+void flashPedGreen(int flashes) {
+  for (int i = 0; i < flashes; i++) {
+    digitalWrite(pedGreenPin, HIGH);
+    delay(flashDelay);
+    digitalWrite(pedGreenPin, LOW);
+    delay(flashDelay);
+  }
+}
+
+// Checking if the button is been pressed
+  void updatePedLights() {
+    if (digitalRead(pedButtonPin) == LOW) {
+      // delay(yellow_delay_time);
+      pedRequest = true;
+      currentState = PED_CROSS;
+    }
+}
+
+void setup() {
+  // Setting pin states
+  pinMode(redPin, OUTPUT);
+  pinMode(yellowPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+
+  pinMode(pedRedPin, OUTPUT);
+  pinMode(pedGreenPin, OUTPUT);
+  pinMode(pedButtonPin, INPUT_PULLUP);
+
+  digitalWrite(redPin, LOW);
+  digitalWrite(yellowPin, LOW);
+  digitalWrite(greenPin, HIGH);
+  digitalWrite(pedRedPin, HIGH);
+  digitalWrite(pedGreenPin, LOW);
+}
+
+void loop() {
+  updatePedLights();
+  switch (currentState) {
+    case PED_CROSS:
+      if (pedRequest) {
+        digitalWrite(redPin, HIGH);
+        digitalWrite(yellowPin, LOW);
+        digitalWrite(greenPin, LOW);
+        digitalWrite(pedRedPin, LOW);
+        digitalWrite(pedGreenPin, HIGH);
+        flashPedGreen(6);
+        pedRequest = false;
+        currentState = RED_YELLOW;
+      }
+      break;
+
+    case RED_YELLOW:
+      updatePedLights();
+      if (pedRequest == false){
+      digitalWrite(redPin, HIGH);
+      digitalWrite(yellowPin, HIGH);
+      digitalWrite(greenPin, LOW);
+      digitalWrite(pedRedPin, LOW);
+      digitalWrite(pedGreenPin, HIGH);
+      }
+      updatePedLights();
+      if (pedRequest == false){
+        delay(yellow_delay_time);
+        currentState = GREEN;
+      }
+      break;
+      
+    case GREEN:
+      updatePedLights();
+      if (pedRequest == false){
+      digitalWrite(redPin, LOW);
+      digitalWrite(yellowPin, LOW);
+      digitalWrite(greenPin, HIGH);
+      digitalWrite(pedRedPin, HIGH);
+      digitalWrite(pedGreenPin, LOW);
+      }
+      updatePedLights();
+      if (pedRequest == false){
+        delay(delay_time);
+        currentState = GREEN_YELLOW;
+      }
+      break;
+
+    case GREEN_YELLOW:
+      updatePedLights();
+      if (pedRequest == false){
+        digitalWrite(redPin, LOW);
+        digitalWrite(yellowPin, HIGH);
+        digitalWrite(greenPin, HIGH);
+        digitalWrite(pedRedPin, HIGH);
+        digitalWrite(pedGreenPin, LOW);
+        }
+      updatePedLights();
+      if (pedRequest == false){
+        delay(yellow_delay_time);
+        currentState = RED;
+      }
+      break;  
+
+    case RED:
+      updatePedLights();
+      if (pedRequest == false){
+        digitalWrite(redPin, HIGH);
+        digitalWrite(yellowPin, LOW);
+        digitalWrite(greenPin, LOW);
+        digitalWrite(pedRedPin, LOW);
+        digitalWrite(pedGreenPin, HIGH);
+      }
+      updatePedLights();
+      if (pedRequest == false){
+        delay(delay_time);
+        currentState = RED_YELLOW;
+        }
+      break;
+
+    default:
+      digitalWrite(redPin, LOW);
+      digitalWrite(yellowPin, LOW);
+      digitalWrite(greenPin, HIGH);
+      digitalWrite(pedRedPin, HIGH);
+      digitalWrite(pedGreenPin, LOW);
+      delay(delay_time);
+      currentState = RED;
+      break;
+  }
+}

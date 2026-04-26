@@ -1,5 +1,14 @@
 This project involves a traffic and pedestrian light system that includes a timer for the pedestrian signal.
+
 The timer counts down from 9 to 0, after which the pedestrian light turns green, allowing pedestrians to
+
 cross. When the push button is pressed and held, the pedestrian light switches to green as quickly as
+
 possible. The green pedestrian signal then flashes on and off to indicate that the button has been
+
 activated.
+
+
+Link to the TinkerCad Project:
+
+https://www.tinkercad.com/things/jBZnSy7XlOT-traffic-light-system-with-timer-and-button?sharecode=ecjt3u4749HQTaTGRYOkK8-eux2NONnNlIih3sZE-7chttps://www.tinkercad.com/things/jBZnSy7XlOT-traffic-light-system-with-timer-and-button?sharecode=ecjt3u4749HQTaTGRYOkK8-eux2NONnNlIih3sZE-7c

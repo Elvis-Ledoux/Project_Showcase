@@ -1,0 +1,61 @@
+int redPin = 5;
+int yellowPin = 11;
+int greenPin = 12;
+int delay_time = 1000;
+int yellow_delay_time = delay_time / 5;
+ 
+ // enumeration is a user defined data type 
+enum TrafficState { RED, RED_YELLOW, GREEN, YELLOW };
+TrafficState currentState = RED;
+  
+  
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(yellowPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+}
+
+
+void loop() {
+  switch (currentState) {
+    case RED:
+      digitalWrite(redPin, HIGH);
+      digitalWrite(yellowPin, LOW);
+      digitalWrite(greenPin, LOW);
+      delay(delay_time);
+      currentState = RED_YELLOW;
+      break;
+
+    case RED_YELLOW:
+      digitalWrite(redPin, HIGH);
+      digitalWrite(yellowPin, HIGH);
+      digitalWrite(greenPin, LOW);
+      delay(yellow_delay_time);
+      currentState = GREEN;
+      break;
+
+    case GREEN:
+      digitalWrite(redPin, LOW);
+      digitalWrite(yellowPin, LOW);
+      digitalWrite(greenPin, HIGH);
+      delay(delay_time);
+      currentState = YELLOW;
+      break;
+
+    case YELLOW:
+      digitalWrite(redPin, LOW);
+      digitalWrite(yellowPin, HIGH);
+      digitalWrite(greenPin, LOW);
+      delay(yellow_delay_time);
+      currentState = RED;
+      break;
+
+    default:
+      // Safety fallback
+      digitalWrite(redPin, LOW);
+      digitalWrite(yellowPin, LOW);
+      digitalWrite(greenPin, LOW);
+      currentState = RED;
+      break;
+  }
+}
